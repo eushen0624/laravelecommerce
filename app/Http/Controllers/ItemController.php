@@ -84,7 +84,7 @@ class ItemController extends Controller
     		"description"=>"required",
     		"price"=>"required|numeric",
     		"category_id"=>"required",
-    		"imgPath"=>"image|mimes:jpeg,jpg,png,gif,tiff,tif,webp,bitmap|max:2048"
+    		"imgPath"=>"image|mimes:jpeg,jpg,png,gif,tiff,tif,webp,bitmap"
     	);
 
     	$this->validate($req, $rules);
@@ -162,4 +162,19 @@ class ItemController extends Controller
     	}
     	return view('userviews.cart', compact('items', 'total'));
     }
+
+    public function removeitem($id){
+        // $cart = Session::get('cart');
+
+        Session::forget("cart.$id");
+        return redirect()->back();
+    }
+
+    public function removeAll(){
+        // $cart = Session::get('cart');
+
+        Session::forget("cart");
+        return redirect()->back();
+    }
+
 }

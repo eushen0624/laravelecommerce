@@ -2,7 +2,7 @@
 @section('content')
 	<h1 class="text-center">Edit Item</h1>
 	<div class="col-lg-6 offset-lg-3">
-		<form action="/edititem/{{$item->id}}" method="POST">
+		<form action="/edititem/{{$item->id}}" method="POST" enctype="multipart/form-data">
 			@csrf
 			@method('PATCH')
 				<div class="form-group">
@@ -39,9 +39,12 @@
 						@endforeach
 					</select>
 				</div>
-				<button class="btn btn-warning" type="submit">
-					Edit
-				</button>
+				<div class="text-center">
+					<button class="btn btn-info" type="submit">
+						Edit Item
+					</button>
+				</div>
+				
 		</form>
 	</div>
 @endsection

@@ -44,3 +44,16 @@ Route::post('/addtocart/{id}', 'ItemController@addToCart');
 
 //for car
 Route::get('/showcart', 'ItemController@showCart');
+
+//To remove an item
+Route::delete('/removeitem/{id}', 'ItemController@removeItem');
+
+//To remove all items
+Route::delete('/removeall', 'ItemController@removeAll');
+
+//Checkout
+Route::get('/checkout', 'OrderController@checkout');
+
+
+//view orders
+Route::get('/showorders', 'OrderController@showOrders');

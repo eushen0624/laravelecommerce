@@ -41,7 +41,7 @@
 							<form action="/addtocart/{{$indiv_item->id}}" method="POST">
 								@csrf
 								<input type="number" name="quantity" class="form-control" value="1">
-								<button class="btn btn-primary" type="submit">
+								<button class="btn btn-primary my-2" type="submit">
 									Add to Cart
 								</button>
 							</form>

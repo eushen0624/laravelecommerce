@@ -4,6 +4,10 @@
 		Cart
 	</h1>
 
+	@if($items != null)
+
+	
+
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 offset-lg-2">
@@ -24,7 +28,15 @@
 								<td>{{$item->price}}</td>
 								<td>{{$item->quantity}}</td>
 								<td>{{$item->subtotal}}</td>
-								<td></td>
+								<td>
+									<form action="/removeitem/{{$item->id}}" method="POST">
+										@csrf
+										@method('DELETE')
+										<button class="btn btn-danger" type="submit">
+											Remove from Cart
+										</button>
+									</form>
+								</td>
 							</tr>
 						@endforeach
 						<tr>
@@ -32,6 +44,23 @@
 							<td></td>
 							<td></td>
 							<td>Total: {{$total}}</td>
+							<td>
+								<form action="/removeall" method="POST">
+										@csrf
+										@method('DELETE')
+										<button class="btn btn-danger" type="submit">
+											Remove All
+										</button>
+								</form>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td>
+								<a href="/checkout" class="btn btn-secondary">Pay via COD</a>
+							</td>
+							<td></td>
 							<td></td>
 						</tr>
 					</tbody>
@@ -39,4 +68,11 @@
 			</div>
 		</div>
 	</div>
+
+	@else
+		<h2 class="text-center py-5">
+			CART IS EMPTY, GO SHOPPING!!!
+		</h2>
+
+	@endif
 @endsection
