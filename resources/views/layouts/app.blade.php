@@ -34,8 +34,26 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
-                    </ul>
 
+                    </ul>
+                    @auth
+                    @if(Auth::user()->role_id==2)
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"><a href="/catalog" class="nav-link">Catalog</a></li>
+                        <li class="nav-item"><a href="/showcart" class="nav-link">Cart</a></li>
+                        <li class="nav-item"><a href="showorders" class="nav-link">Orders</a></li>
+
+                    </ul>
+                    @else
+                        <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"><a href="/catalog" class="nav-link">Catalog</a></li>
+                        <li class="nav-item"><a href="/additem" class="nav-link">Add Item</a></li>
+                        <li class="nav-item"><a href="/showorders" class="nav-link">All Orders</a></li>
+                        <li class="nav-item"><a href="/allusers" class="nav-link">Users</a></li>
+
+                    </ul>
+                    @endif
+                    @endauth
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->

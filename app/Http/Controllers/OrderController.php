@@ -54,4 +54,29 @@ class OrderController extends Controller
 
    		return view('userviews.orders', compact('orders'));
    }
+
+   public function allOrders(){
+      $orders = Order::all();
+
+         return view('adminviews.allorders', compact('orders'));
+   }
+
+   public function cancelOrderByAdmin($id){
+      $order = Order::find($id);
+
+      if(Auth::user()->role_id == 2){
+         $order->status_id = 3;
+         $order->save();
+
+         // return redirect('userviews.orders');
+         return redirect('/showorders');
+      }else{
+
+      $order->status_id = 4;
+      $order->save();
+
+      return redirect('/allorders');
+      }
+
+   }
 }

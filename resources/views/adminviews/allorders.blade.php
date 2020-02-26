@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 	<h1 class="text-center py-5">
-		Orders
+		All Orders
 	</h1>
 
 	<div class="container">
@@ -14,8 +14,10 @@
 							<th>Order Date</th>
 							<th>Order Details</th>
 							<th>Order Total</th>
+							<th>Customer Name</th>
 							<th>Payment</th>
-							<th>Order Status</th>
+							<th>Status</th>
+							<th>Actions</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -36,14 +38,11 @@
 								</td>
 								<td>{{$order->total}}</td>
 								<td>{{$order->payment->name}}</td>
+								<td>{{$item->price}}</td>
 								<td>{{$order->status->name}}</td>
+								<td>{{$order->user->name}}</td>
 								<td>
-									@if($order->status_id == 3 || $order->status_id == 4)
-
-									@else
-									<a href="/cancelorder/{{$order->id}}" class="btn btn-danger ">Cancel</a>
-									{{-- {{$order->status_id == 3 || $order->status_id == 4 ? "disabled" : ""	}} --}}
-									@endif
+									<a href="/cancelorder/{{$order->id}}" class="btn btn-danger {{$order->status_id == 4 || $order->status_id == 3 ? "disabled" : ""	}}">Cancel</a>
 								</td>
 							</tr>
 

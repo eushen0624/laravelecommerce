@@ -11,8 +11,9 @@ class ItemController extends Controller
 {
     public function index(){
     	$items = Item::all();
+        $categories = Category::all();
     	
-    	return view('catalog', compact("items"));
+    	return view('catalog', compact("items", "categories"));
     }
 
     public function create(){
@@ -175,6 +176,34 @@ class ItemController extends Controller
 
         Session::forget("cart");
         return redirect()->back();
+    }
+
+    public function filter($id){
+        $items = Item::where('category_id', $id)->get();
+
+        $categories = Category::all();
+
+        return view('catalog', compact('items', 'categories'));
+    }
+
+    public function sort($sort){
+        $items = Item::orderBy('price', $sort)->get();
+        $categories = Category::all();
+
+        return view('catalog', compact('items', 'categories'));
+
+    }
+
+    public function search(Request $req){
+        $items = Item::where('name', 'LIKE', '%' . $req->search . '%')->orWhere('description', 'LIKE', '%' . $req->search. '%' )->get();
+
+        $categories = Category::all();
+
+        if(count($items)==0){
+            Session::flash('message', 'No items found');
+        }
+
+        return view('catalog', compact('items', 'categories'));
     }
 
 }

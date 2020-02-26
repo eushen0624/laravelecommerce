@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 21, 2020 at 09:35 AM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.0
+-- Generation Time: Feb 26, 2020 at 07:18 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.3.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `b55LaravelEcommerce`
+-- Database: `b55laravelecommerce`
 --
 
 -- --------------------------------------------------------
@@ -57,7 +57,7 @@ CREATE TABLE `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -82,7 +82,9 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`id`, `name`, `price`, `description`, `imgPath`, `category_id`, `created_at`, `updated_at`) VALUES
-(3, 'afa', '22.00', 'dfgasdf', 'images/1582270560.jpeg', 3, '2020-02-20 23:36:00', '2020-02-20 23:36:00');
+(3, 'Wag ka magupdate', '100.00', 'abug bug berna kita!! tapos tulfo', 'images/1582270560.jpeg', 2, '2020-02-20 23:36:00', '2020-02-23 22:38:21'),
+(4, 'Dark Coffee', '150.00', 'Pure Arabica beans', 'images/1582522022.webp', 1, '2020-02-23 21:27:02', '2020-02-23 21:27:02'),
+(5, 'Brown Coffee', '150.00', 'Mascuvado sugar', 'images/1582526377.jpg', 2, '2020-02-23 22:39:37', '2020-02-23 22:39:37');
 
 -- --------------------------------------------------------
 
@@ -98,6 +100,34 @@ CREATE TABLE `item_order` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `item_order`
+--
+
+INSERT INTO `item_order` (`id`, `order_id`, `item_id`, `quantity`, `created_at`, `updated_at`) VALUES
+(1, 1, 3, 3, '2020-02-24 00:34:54', '2020-02-24 00:34:54'),
+(2, 1, 5, 1, '2020-02-24 00:34:54', '2020-02-24 00:34:54'),
+(3, 1, 4, 1, '2020-02-24 00:34:54', '2020-02-24 00:34:54'),
+(4, 3, 3, 1, '2020-02-25 16:54:37', '2020-02-25 16:54:37'),
+(5, 3, 5, 1, '2020-02-25 16:54:37', '2020-02-25 16:54:37'),
+(6, 4, 4, 2, '2020-02-25 17:25:21', '2020-02-25 17:25:21'),
+(7, 4, 3, 1, '2020-02-25 17:25:21', '2020-02-25 17:25:21'),
+(8, 4, 5, 2, '2020-02-25 17:25:21', '2020-02-25 17:25:21'),
+(9, 5, 4, 1, '2020-02-25 17:27:44', '2020-02-25 17:27:44'),
+(10, 5, 5, 1, '2020-02-25 17:27:44', '2020-02-25 17:27:44'),
+(11, 6, 4, 2, '2020-02-25 17:31:13', '2020-02-25 17:31:13'),
+(12, 6, 5, 1, '2020-02-25 17:31:13', '2020-02-25 17:31:13'),
+(13, 7, 4, 1, '2020-02-25 17:34:44', '2020-02-25 17:34:44'),
+(14, 8, 4, 2, '2020-02-25 17:36:03', '2020-02-25 17:36:03'),
+(15, 9, 3, 3, '2020-02-25 21:04:05', '2020-02-25 21:04:05'),
+(16, 9, 4, 4, '2020-02-25 21:04:05', '2020-02-25 21:04:05'),
+(17, 10, 5, 2, '2020-02-25 21:04:21', '2020-02-25 21:04:21'),
+(18, 10, 4, 2, '2020-02-25 21:04:21', '2020-02-25 21:04:21'),
+(19, 11, 4, 2, '2020-02-25 21:05:33', '2020-02-25 21:05:33'),
+(20, 11, 5, 2, '2020-02-25 21:05:33', '2020-02-25 21:05:33'),
+(21, 12, 4, 2, '2020-02-25 21:08:13', '2020-02-25 21:08:13'),
+(22, 12, 5, 2, '2020-02-25 21:08:13', '2020-02-25 21:08:13');
 
 -- --------------------------------------------------------
 
@@ -144,6 +174,24 @@ CREATE TABLE `orders` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `total`, `user_id`, `status_id`, `payment_id`, `created_at`, `updated_at`) VALUES
+(1, '600.00', 2, 3, 1, '2020-02-24 00:34:54', '2020-02-25 17:22:46'),
+(2, '0.00', 2, 4, 1, '2020-02-24 00:43:03', '2020-02-25 17:12:29'),
+(3, '250.00', 2, 4, 1, '2020-02-25 16:54:37', '2020-02-25 17:17:00'),
+(4, '700.00', 2, 3, 1, '2020-02-25 17:25:21', '2020-02-25 17:26:20'),
+(5, '300.00', 2, 3, 1, '2020-02-25 17:27:44', '2020-02-25 17:27:58'),
+(6, '450.00', 2, 3, 1, '2020-02-25 17:31:13', '2020-02-25 17:31:48'),
+(7, '150.00', 2, 1, 1, '2020-02-25 17:34:44', '2020-02-25 17:34:44'),
+(8, '300.00', 2, 1, 1, '2020-02-25 17:36:03', '2020-02-25 17:36:03'),
+(9, '900.00', 5, 1, 1, '2020-02-25 21:04:05', '2020-02-25 21:04:05'),
+(10, '600.00', 5, 3, 1, '2020-02-25 21:04:21', '2020-02-25 21:08:22'),
+(11, '600.00', 5, 1, 1, '2020-02-25 21:05:33', '2020-02-25 21:05:33'),
+(12, '600.00', 5, 3, 1, '2020-02-25 21:08:13', '2020-02-25 21:08:19');
+
 -- --------------------------------------------------------
 
 --
@@ -155,6 +203,13 @@ CREATE TABLE `password_resets` (
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `password_resets`
+--
+
+INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
+('hindiakouser@gmail.com', '$2y$10$vkHk.QfI0PI26ZUUNzK6geJX6JMo9LVoo1Y86VUHxNYcVYRyOIsz2', '2020-02-25 22:13:16');
 
 -- --------------------------------------------------------
 
@@ -238,7 +293,7 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `role_id` bigint(20) UNSIGNED NOT NULL DEFAULT '2'
+  `role_id` bigint(20) UNSIGNED NOT NULL DEFAULT 2
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -246,7 +301,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role_id`) VALUES
-(1, 'JustAUser', 'userako@user.com', NULL, '$2y$10$qiZIUGW4CMPVENvVz0JKjOmt7GUHHkkDxm8TKfekpKU0S6LwCjYJC', NULL, '2020-02-20 23:10:36', '2020-02-20 23:10:36', 2);
+(1, 'JustAUser', 'userako@user.com', NULL, '$2y$10$qiZIUGW4CMPVENvVz0JKjOmt7GUHHkkDxm8TKfekpKU0S6LwCjYJC', NULL, '2020-02-20 23:10:36', '2020-02-25 18:18:22', 1),
+(2, 'userlang', 'user@user.com', NULL, '$2y$10$WfxGls90A.Nq2uhODukFa.Ywg8TEj3bLnceA4fxYM1levxuQChGEK', NULL, '2020-02-24 00:32:01', '2020-02-25 19:01:02', 1),
+(5, 'UserAko', 'user2@user.com', NULL, '$2y$10$pYYSQV1HsH/7QI2zOcudHu3/hfSx/jA..0RjrMWq27RAcpBAKcZFm', NULL, '2020-02-25 19:05:35', '2020-02-25 19:05:35', 2),
+(6, 'adminako', 'admin@admin.com', NULL, '$2y$10$PU46KaGxO1cWj7A0pePY9uIbsTgPwOEAgitvJ61GAH1/n9jTaFbQy', NULL, '2020-02-25 19:29:14', '2020-02-25 19:29:14', 1),
+(7, 'hindiako user', 'hindiakouser@gmail.com', NULL, '$2y$10$JC25NnHx.kzIxk/mBrhfVOao01kLvdotJe6qZICGS4IN5wqH55.p2', NULL, '2020-02-25 22:05:43', '2020-02-25 22:05:43', 2);
 
 --
 -- Indexes for dumped tables
@@ -346,13 +405,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `item_order`
 --
 ALTER TABLE `item_order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -364,7 +423,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -388,7 +447,7 @@ ALTER TABLE `statuses`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
