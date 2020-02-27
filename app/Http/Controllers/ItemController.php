@@ -29,7 +29,7 @@ class ItemController extends Controller
     		"description"=>"required",
     		"price"=>"required|numeric",
     		"category_id"=>"required",
-    		"imgPath"=>"required|image|mimes:jpeg,jpg,png,gif,tiff,tif,webp,bitmap|max:2048"
+    		"imgPath"=>"required|image|mimes:jpeg,jpg,png,gif,tiff,tif,webp,bitmap"
     	);
 
     	$this->validate($req, $rules);
@@ -204,6 +204,12 @@ class ItemController extends Controller
         }
 
         return view('catalog', compact('items', 'categories'));
+    }
+
+    public function restore($id){
+        $items = Item::withTrashed()->find($id)->restore();
+
+        return redirect('/catalog');
     }
 
 }

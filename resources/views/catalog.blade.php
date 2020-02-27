@@ -67,29 +67,49 @@
 								Category: {{$indiv_item->category->name}}
 							</p>
 
+							@if($indiv_item->delete_at != NULL)
+								<p class="text-danger">
+									Out of Stock!!!
+								</p>
+							@endif
+
 						@auth
 						@if(Auth::user()->role_id==1)
-						<div class="card-footer">
-							<form action="/deleteitem/{{$indiv_item->id}}" method="POST">
-							@csrf
-							@method('DELETE')
-							<button class="btn btn-danger" type="submit">
-								Delete
-							</button>
-							<a href="/edititem/{{$indiv_item->id}}" class="btn btn-success">Edit</a>
-						</form>
-						</div>
-						@else
-						<div class="card-footer">
-							
-							<form action="/addtocart/{{$indiv_item->id}}" method="POST">
+							<div class="card-footer d-flex">
+							@if($indiv_item->delete_at == NULL)
+								<form action="/deleteitem/{{$indiv_item->id}}" method="POST">
 								@csrf
-								<input type="number" name="quantity" class="form-control" value="1" id="quantity_{{$indiv_item->id}}">
-								<button class="btn btn-primary my-2" onclick="addToCart({{$indiv_item->id}})" type="submit">
-									Add to Cart
+								@method('DELETE')
+								<button class="btn btn-danger" type="submit">
+									Delete
 								</button>
-							</form>
-						</div>
+								
+								</form>
+						
+							@else
+								<form action="/restoreitem/{{$indiv_item->id}}" method="POST">
+								@csrf
+									<button class="btn btn-danger" type="submit">
+										Restock
+									</button>
+								
+								</form>
+
+						
+							@endif
+							<a href="/edititem/{{$indiv_item->id}}" class="btn btn-info">Edit</a>
+							</div>
+						@else
+							<div class="card-footer">
+							
+								<form action="/addtocart/{{$indiv_item->id}}" method="POST">
+									@csrf
+									<input type="number" name="quantity" class="form-control" value="1" id="quantity_{{$indiv_item->id}}">
+									<button class="btn btn-primary my-2" onclick="addToCart({{$indiv_item->id}})" type="submit">
+										Add to Cart
+									</button>
+								</form>
+							</div>
 						
 						@endif
 						@endauth

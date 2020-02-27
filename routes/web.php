@@ -41,6 +41,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 	//Delete item
 	Route::delete('/deleteitem/{id}', 'ItemController@destroy');
 
+	Route::post('/restoreitem/{id}', 'ItemController@restore');
+
 	//
 	Route::get('/edititem/{id}', 'ItemController@edit');
 
