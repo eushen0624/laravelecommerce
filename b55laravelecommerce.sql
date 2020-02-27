@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 26, 2020 at 07:18 AM
+-- Generation Time: Feb 27, 2020 at 09:13 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.14
 
@@ -74,17 +74,19 @@ CREATE TABLE `items` (
   `imgPath` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `items`
 --
 
-INSERT INTO `items` (`id`, `name`, `price`, `description`, `imgPath`, `category_id`, `created_at`, `updated_at`) VALUES
-(3, 'Wag ka magupdate', '100.00', 'abug bug berna kita!! tapos tulfo', 'images/1582270560.jpeg', 2, '2020-02-20 23:36:00', '2020-02-23 22:38:21'),
-(4, 'Dark Coffee', '150.00', 'Pure Arabica beans', 'images/1582522022.webp', 1, '2020-02-23 21:27:02', '2020-02-23 21:27:02'),
-(5, 'Brown Coffee', '150.00', 'Mascuvado sugar', 'images/1582526377.jpg', 2, '2020-02-23 22:39:37', '2020-02-23 22:39:37');
+INSERT INTO `items` (`id`, `name`, `price`, `description`, `imgPath`, `category_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(3, 'Wag ka magupdate', '100.00', 'abug bug berna kita!! tapos tulfo', 'images/1582270560.jpeg', 2, '2020-02-20 23:36:00', '2020-02-26 17:19:21', '2020-02-26 17:19:21'),
+(4, 'Dark Coffee', '150.00', 'Pure Arabica beans', 'images/1582522022.webp', 1, '2020-02-23 21:27:02', '2020-02-23 21:27:02', NULL),
+(5, 'Brown Coffee', '150.00', 'Mascuvado sugar', 'images/1582526377.jpg', 2, '2020-02-23 22:39:37', '2020-02-23 22:39:37', NULL),
+(6, 'Chocolate Chip Cookie', '250.00', 'Best cookie in town', 'images/1582766815.jpg', 4, '2020-02-26 17:26:55', '2020-02-26 17:26:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -156,7 +158,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (8, '2020_02_21_002558_create_items_table', 1),
 (9, '2020_02_21_002603_create_orders_table', 1),
 (10, '2020_02_21_003045_create_item_order_table', 1),
-(11, '2020_02_21_004243_add_role_to_user', 1);
+(11, '2020_02_21_004243_add_role_to_user', 1),
+(12, '2020_02_26_080014_add_details_to_users', 2),
+(13, '2020_02_27_003538_add_soft_delete_to_items', 3),
+(14, '2020_02_27_005927_add_soft_delete_to_items', 4);
 
 -- --------------------------------------------------------
 
@@ -209,7 +214,7 @@ CREATE TABLE `password_resets` (
 --
 
 INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
-('hindiakouser@gmail.com', '$2y$10$vkHk.QfI0PI26ZUUNzK6geJX6JMo9LVoo1Y86VUHxNYcVYRyOIsz2', '2020-02-25 22:13:16');
+('hindiakouser@gmail.com', '$2y$10$.7qBp1nske5RFytkHAYseuvzZFAF8BA/UsVoDstFrLTBGiMqry7n.', '2020-02-25 22:23:32');
 
 -- --------------------------------------------------------
 
@@ -293,19 +298,23 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `role_id` bigint(20) UNSIGNED NOT NULL DEFAULT 2
+  `role_id` bigint(20) UNSIGNED NOT NULL DEFAULT 2,
+  `address` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role_id`) VALUES
-(1, 'JustAUser', 'userako@user.com', NULL, '$2y$10$qiZIUGW4CMPVENvVz0JKjOmt7GUHHkkDxm8TKfekpKU0S6LwCjYJC', NULL, '2020-02-20 23:10:36', '2020-02-25 18:18:22', 1),
-(2, 'userlang', 'user@user.com', NULL, '$2y$10$WfxGls90A.Nq2uhODukFa.Ywg8TEj3bLnceA4fxYM1levxuQChGEK', NULL, '2020-02-24 00:32:01', '2020-02-25 19:01:02', 1),
-(5, 'UserAko', 'user2@user.com', NULL, '$2y$10$pYYSQV1HsH/7QI2zOcudHu3/hfSx/jA..0RjrMWq27RAcpBAKcZFm', NULL, '2020-02-25 19:05:35', '2020-02-25 19:05:35', 2),
-(6, 'adminako', 'admin@admin.com', NULL, '$2y$10$PU46KaGxO1cWj7A0pePY9uIbsTgPwOEAgitvJ61GAH1/n9jTaFbQy', NULL, '2020-02-25 19:29:14', '2020-02-25 19:29:14', 1),
-(7, 'hindiako user', 'hindiakouser@gmail.com', NULL, '$2y$10$JC25NnHx.kzIxk/mBrhfVOao01kLvdotJe6qZICGS4IN5wqH55.p2', NULL, '2020-02-25 22:05:43', '2020-02-25 22:05:43', 2);
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role_id`, `address`, `phone`) VALUES
+(1, 'JustAUser', 'userako@user.com', NULL, '$2y$10$qiZIUGW4CMPVENvVz0JKjOmt7GUHHkkDxm8TKfekpKU0S6LwCjYJC', NULL, '2020-02-20 23:10:36', '2020-02-25 18:18:22', 1, NULL, NULL),
+(2, 'userlang', 'user@user.com', NULL, '$2y$10$WfxGls90A.Nq2uhODukFa.Ywg8TEj3bLnceA4fxYM1levxuQChGEK', NULL, '2020-02-24 00:32:01', '2020-02-25 19:01:02', 1, NULL, NULL),
+(5, 'UserAko', 'user2@user.com', NULL, '$2y$10$pYYSQV1HsH/7QI2zOcudHu3/hfSx/jA..0RjrMWq27RAcpBAKcZFm', NULL, '2020-02-25 19:05:35', '2020-02-25 19:05:35', 2, NULL, NULL),
+(6, 'adminako', 'admin@admin.com', NULL, '$2y$10$PU46KaGxO1cWj7A0pePY9uIbsTgPwOEAgitvJ61GAH1/n9jTaFbQy', NULL, '2020-02-25 19:29:14', '2020-02-25 23:00:52', 1, NULL, NULL),
+(7, 'hindiako user', 'hindiakouser@gmail.com', NULL, '$2y$10$JC25NnHx.kzIxk/mBrhfVOao01kLvdotJe6qZICGS4IN5wqH55.p2', NULL, '2020-02-25 22:05:43', '2020-02-25 22:05:43', 2, NULL, NULL),
+(8, 'eushen', 'eushenadmin@admin.com', NULL, '$2y$10$3xmoicFtAQ7RVEYKA5FLeO70FQ5vDdGwmYD/9xpa4x7m0hpZFMRnS', NULL, '2020-02-26 00:13:31', '2020-02-26 00:13:31', 2, NULL, NULL),
+(9, 'test1', 'test1@test.com', NULL, '$2y$10$TF59uXlQ.THZQGD6/SI5DuVf4sYLYElgD8hVh1rleLtYuueNY98q2', NULL, '2020-02-26 00:15:23', '2020-02-26 00:15:23', 2, 'makati city', '09541561525');
 
 --
 -- Indexes for dumped tables
@@ -405,7 +414,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `item_order`
@@ -417,7 +426,7 @@ ALTER TABLE `item_order`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -447,7 +456,7 @@ ALTER TABLE `statuses`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
